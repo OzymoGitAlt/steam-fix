@@ -102,7 +102,7 @@ SteamFix is specifically tailored for network-level filtering and connection fai
 
 ## Vietnam ISP / Steam Blocking
 
-In Vietnam, access to the Steam Store, Steam Community, and certain game CDN endpoints can become intermittently unstable or blocked. Some users on Vietnamese ISPs such as **FPT**, **VNPT** or **Viettel** (often colloquially referred to as "nhà mạng 3 chữ", "nhà mạng 4 chữ", or "nhà mạng 7 chữ") may encounter DNS or DPI filtering depending on location, routing and current ISP configuration.
+In Vietnam, access to the Steam Store, Steam Community, and certain game CDN endpoints can become intermittently unstable or blocked. Some users on Vietnamese ISPs such as "nhà mạng 3 chữ", "nhà mạng 4 chữ", or "nhà mạng 7 chữ", may encounter DNS or DPI filtering depending on location, routing and current ISP configuration.
 
 ISP filtering in Vietnam typically operates at two technical layers:
 
@@ -303,14 +303,6 @@ Possibly, if PUBG or its launcher is failing because required network endpoints 
 #### Can SteamFix unblock websites?
 Yes. Because GoodbyeDPI operates globally, web traffic affected by ISP DPI or SNI blocking can pass transparently.
 
-#### Does SteamFix work with FPT?
-Yes. FPT users experiencing DNS or DPI drops to Steam Store or Community can use SteamFix to restore access.
-
-#### Does SteamFix work with VNPT?
-Yes. VNPT users facing DNS poisoning or SNI filtering on Steam assets can resolve it with SteamFix.
-
-#### Does SteamFix work with Viettel?
-Yes. Viettel connections affected by Steam CDN filtering are supported.
 
 #### Why does it require Administrator?
 Administrator privileges are required to configure Windows network adapter DNS settings, register DNS-over-HTTPS templates, and create the background `steamfix` Windows service.
@@ -349,4 +341,4 @@ This project is licensed under the [MIT License](LICENSE). Third-party component
 
 ## Disclaimer
 
-SteamFix is provided "as is" without warranty of any kind. Steam, Counter-Strike 2 (CS2), PUBG, Valve, FPT, VNPT, and Viettel are trademarks or registered trademarks of their respective owners. SteamFix is not affiliated with or endorsed by any of these entities.
+SteamFix is provided "as is" without warranty of any kind. Steam, Counter-Strike 2 (CS2), PUBG, Valve are trademarks or registered trademarks of their respective owners. SteamFix is not affiliated with or endorsed by any of these entities.
