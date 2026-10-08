@@ -209,49 +209,54 @@ function Backup-Network {
     }
 
     if (-not (Test-Path $dohBackup)) {
-        if (-not (Get-Command Get-DnsClientDohServerAddress -ErrorAction SilentlyContinue)) {
-            throw "Windows DNS-over-HTTPS cmdlets are not available."
-        }
-
-        $b = foreach ($ip in @("8.8.8.8","8.8.4.4")) {
-            $x = Get-DnsClientDohServerAddress -ServerAddress $ip -ErrorAction SilentlyContinue
-            if ($x) {
-                [pscustomobject]@{
-                    ServerAddress      = $ip
-                    Exists             = $true
-                    DohTemplate        = [string]$x.DohTemplate
-                    AllowFallbackToUdp = [bool]$x.AllowFallbackToUdp
-                    AutoUpgrade        = [bool]$x.AutoUpgrade
-                }
-            } else {
-                [pscustomobject]@{
-                    ServerAddress      = $ip
-                    Exists             = $false
-                    DohTemplate        = ""
-                    AllowFallbackToUdp = $false
-                    AutoUpgrade        = $false
+        $hasDohCmdlet = [bool](Get-Command Get-DnsClientDohServerAddress -ErrorAction SilentlyContinue)
+        if ($hasDohCmdlet) {
+            $b = foreach ($ip in @("8.8.8.8","8.8.4.4")) {
+                $x = Get-DnsClientDohServerAddress -ServerAddress $ip -ErrorAction SilentlyContinue
+                if ($x) {
+                    [pscustomobject]@{
+                        ServerAddress      = $ip
+                        Exists             = $true
+                        DohTemplate        = [string]$x.DohTemplate
+                        AllowFallbackToUdp = [bool]$x.AllowFallbackToUdp
+                        AutoUpgrade        = [bool]$x.AutoUpgrade
+                    }
+                } else {
+                    [pscustomobject]@{
+                        ServerAddress      = $ip
+                        Exists             = $false
+                        DohTemplate        = ""
+                        AllowFallbackToUdp = $false
+                        AutoUpgrade        = $false
+                    }
                 }
             }
+            $b | ConvertTo-Json -Depth 4 | Set-Content -Encoding UTF8 $dohBackup
         }
-        $b | ConvertTo-Json -Depth 4 | Set-Content -Encoding UTF8 $dohBackup
     }
 }
 
 function Enable-SecureDns {
-    $servers = @(
-        @{ IP="8.8.8.8"; URL="https://dns.google/dns-query" },
-        @{ IP="8.8.4.4"; URL="https://dns.google/dns-query" }
-    )
+    $hasDohCmdlet = [bool](Get-Command Get-DnsClientDohServerAddress -ErrorAction SilentlyContinue)
 
-    foreach ($s in $servers) {
-        $x = Get-DnsClientDohServerAddress -ServerAddress $s.IP -ErrorAction SilentlyContinue
-        if ($x) {
-            Set-DnsClientDohServerAddress -ServerAddress $s.IP -DohTemplate $s.URL `
-                -AllowFallbackToUdp $false -AutoUpgrade $true | Out-Null
-        } else {
-            Add-DnsClientDohServerAddress -ServerAddress $s.IP -DohTemplate $s.URL `
-                -AllowFallbackToUdp $false -AutoUpgrade $true | Out-Null
+    if ($hasDohCmdlet) {
+        $servers = @(
+            @{ IP="8.8.8.8"; URL="https://dns.google/dns-query" },
+            @{ IP="8.8.4.4"; URL="https://dns.google/dns-query" }
+        )
+
+        foreach ($s in $servers) {
+            $x = Get-DnsClientDohServerAddress -ServerAddress $s.IP -ErrorAction SilentlyContinue
+            if ($x) {
+                Set-DnsClientDohServerAddress -ServerAddress $s.IP -DohTemplate $s.URL `
+                    -AllowFallbackToUdp $false -AutoUpgrade $true -ErrorAction SilentlyContinue | Out-Null
+            } else {
+                Add-DnsClientDohServerAddress -ServerAddress $s.IP -DohTemplate $s.URL `
+                    -AllowFallbackToUdp $false -AutoUpgrade $true -ErrorAction SilentlyContinue | Out-Null
+            }
         }
+    } else {
+        Write-Host "      [!] Windows DoH cmdlets not supported on this Windows build. Falling back to Google DNS (UDP/TCP)." -ForegroundColor Yellow
     }
 
     $adapters = @(Get-NetAdapter -Physical -ErrorAction SilentlyContinue |
