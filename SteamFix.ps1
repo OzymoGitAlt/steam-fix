@@ -6,7 +6,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Hosted script location for elevation and self-updating execution.
-$SelfUrl = "https://raw.githubusercontent.com/OzymoGit/SteamFix/main/SteamFix.ps1"
+$SelfUrl = "https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1"
 
 $ServiceName = "steamfix"
 $Root        = Join-Path $env:ProgramData "SteamFix"

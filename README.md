@@ -21,7 +21,7 @@ Bạn có thể chạy công cụ trực tiếp thông qua cửa sổ dòng lệ
 3. Sao chép (Copy) toàn bộ lệnh dưới đây:
 
    ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGit/SteamFix/main/SteamFix.ps1' | iex"
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' | iex"
    ```
 
 4. Chuyển sang cửa sổ dòng lệnh vừa mở:
@@ -40,7 +40,7 @@ Bạn có thể chạy công cụ trực tiếp thông qua cửa sổ dòng lệ
 4. Dán dòng lệnh sau vào cửa sổ:
 
    ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGit/SteamFix/main/SteamFix.ps1' | iex"
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' | iex"
    ```
 
 5. Nhấn phím **Enter**.
@@ -57,7 +57,7 @@ Bạn có thể chạy công cụ trực tiếp thông qua cửa sổ dòng lệ
 
 1. Tải tệp script về máy:
    ```powershell
-   Invoke-WebRequest 'https://raw.githubusercontent.com/OzymoGit/SteamFix/main/SteamFix.ps1' -OutFile SteamFix.ps1
+   Invoke-WebRequest 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' -OutFile SteamFix.ps1
    ```
 2. Mở file bằng Notepad hoặc trình soạn thảo mã nguồn để đọc:
    ```powershell
