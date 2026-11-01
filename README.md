@@ -1,167 +1,112 @@
-# SteamFix
+# ⚡ SteamFix
 
-SteamFix là công cụ tiện ích mạng nguồn mở dành cho Windows, được thiết kế nhằm hỗ trợ chẩn đoán và khắc phục tình trạng gián đoạn kết nối khi truy cập dịch vụ Steam, các trình khởi chạy trò chơi và website do hiện tượng DNS bị lỗi phân giải hoặc lọc gói tin mạng TLS/SNI. Tiện ích kết hợp cấu hình DNS bảo mật (DNS-over-HTTPS) và công cụ GoodbyeDPI để giúp khôi phục khả năng truy cập Steam Store, Steam Community, tải ảnh đại diện (avatar), kết nối máy chủ CDN và tải tài nguyên một cách ổn định, minh bạch.
+<div align="center">
 
-Dự án cam kết tuân thủ đầy đủ **Tiêu chuẩn Cộng đồng của GitHub (GitHub Community Guidelines)** và **Chính sách Sử dụng Chấp nhận được (Acceptable Use Policies)**: mã nguồn mở 100%, không thu thập dữ liệu, không can thiệp vào tiến trình trò chơi hay hệ thống chống gian lận, và có cơ chế khôi phục cài đặt mạng ban đầu an toàn.
+**Một sản phẩm tiện ích mạng hỗ trợ game thủ phát triển bởi [ZeroMem Studio](https://zeromem.indevs.in/)**
 
----
+[![Website](https://img.shields.io/badge/Official_Site-zeromem.indevs.in-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zeromem.indevs.in/)
+[![GitHub Release](https://img.shields.io/github/v/release/ZeroMemInc/steam-fix?style=for-the-badge&color=22c55e&label=Release)](https://github.com/ZeroMemInc/steam-fix/releases)
+[![Discord Support](https://img.shields.io/badge/Support-Discord_24%2F7-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://zeromem.indevs.in/)
 
-## ⚡ Hướng Dẫn Cài Đặt Nhanh
-
-Bạn có thể chạy công cụ trực tiếp thông qua cửa sổ dòng lệnh trên Windows:
-
-### Cách 1: Mở qua Hộp thoại Run (Nhanh nhất)
-
-1. Nhấn tổ hợp phím **`Windows + R`** trên bàn phím để mở hộp thoại **Run**.
-2. Nhập vào ô tìm kiếm:
-   ```text
-   powershell
-   ```
-   Sau đó nhấn **Enter** (hoặc nhấn `Ctrl + Shift + Enter` để mở với quyền Administrator).
-3. Sao chép (Copy) toàn bộ lệnh dưới đây:
-
-   ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' | iex"
-   ```
-
-4. Chuyển sang cửa sổ dòng lệnh vừa mở:
-   - Nhấp **chuột phải** vào màn hình để dán lệnh (hoặc nhấn tổ hợp phím **`Ctrl + V`**).
-5. Nhấn phím **Enter**.
-6. Nếu Windows hiện thông báo yêu cầu cấp quyền quản trị (**UAC - User Account Control**), chọn **Yes** để tiếp tục.
-7. Khi menu SteamFix xuất hiện trên màn hình, nhấn phím **`1`** rồi nhấn **Enter** để tiến hành thiết lập.
+</div>
 
 ---
 
-### Cách 2: Mở qua Menu Start / Tìm kiếm Windows
-
-1. Nhấn phím **`Windows`** trên bàn phím (hoặc bấm vào biểu tượng Start ở góc màn hình).
-2. Gõ từ khóa: **`PowerShell`** (hoặc **`Command Prompt`** / **`cmd`**).
-3. Nhấp chuột phải vào kết quả hiện ra và chọn **Run as administrator** (Chạy với quyền quản trị viên).
-4. Dán dòng lệnh sau vào cửa sổ:
-
-   ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' | iex"
-   ```
-
-5. Nhấn phím **Enter**.
-6. Chọn số **`1`** và nhấn **Enter** để hoàn tất cài đặt.
+**SteamFix** là công cụ tiện ích mạng nguồn mở dành cho Windows do **ZeroMem Studio** phát triển, giúp người dùng giải quyết nhanh các vấn đề mạng phổ biến như:
+* Không thể mở được **Steam Store** (Cửa hàng Steam), màn hình đen hoặc báo lỗi kết nối `-105`.
+* **Steam Community** (Chợ cộng đồng, kho đồ Inventory, Workshop) không hiển thị dữ liệu.
+* **Ảnh đại diện (Avatar) bị lỗi**: Trong CS2 hoặc trong danh sách bạn bè Steam chỉ hiện ô vuông xám/dấu hỏi chấm.
+* **Tải game bị đứng**: Tốc độ tải game bị tuột về 0 bytes/s hoặc báo lỗi `Content servers unreachable`.
+* Một số game/launcher (như PUBG) bị treo cứng ở màn hình Loading kết nối ban đầu do máy chủ xác thực CDN bị gián đoạn.
 
 > [!NOTE]
-> Tham số `-ExecutionPolicy Bypass` chỉ áp dụng tạm thời cho đúng phiên PowerShell đang thực thi, hoàn toàn không làm thay đổi hay suy giảm chính sách bảo mật hệ thống lâu dài của Windows.
+> **Triết lý sản phẩm ZeroMem Studio (Non-Invasive)**: Công cụ hoạt động 100% ở tầng cấu hình mạng (kết hợp mã hóa DNS-over-HTTPS và phân mảnh gói tin GoodbyeDPI). **Tuyệt đối không can thiệp vào file game, không tiêm mã vào bộ nhớ, không chỉnh sửa file Steam và hoàn toàn an toàn với mọi hệ thống chống gian lận (Anti-Cheat: VAC, EAC, BattlEye).**
 
 ---
 
-## 🔍 Kiểm Tra Mã Nguồn Trước Khi Chạy (Khuyến nghị bảo mật)
+## 🚀 HƯỚNG DẪN CÀI ĐẶT CỰC KỲ ĐƠN GIẢN (Cho Người Dùng Mới)
 
-Để đảm bảo tính minh bạch theo tiêu chuẩn an toàn phần mềm, bạn hoàn toàn có thể tải về và kiểm tra toàn bộ mã nguồn trước khi cấp quyền thực thi:
+> **Bạn không cần biết lập trình hay rành công nghệ, chỉ cần làm đúng theo 3 bước cực nhanh bên dưới:**
 
-1. Tải tệp script về máy:
-   ```powershell
-   Invoke-WebRequest 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' -OutFile SteamFix.ps1
-   ```
-2. Mở file bằng Notepad hoặc trình soạn thảo mã nguồn để đọc:
-   ```powershell
-   notepad SteamFix.ps1
-   ```
-3. Khởi chạy tệp cục bộ sau khi đã xem xét:
-   ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\SteamFix.ps1
-   ```
+### Bước 1: Sao chép (Copy) dòng lệnh này
+Bôi đen toàn bộ dòng lệnh bên dưới rồi bấm **`Ctrl + C`** (hoặc nhấp chuột phải chọn **Sao chép**):
 
----
-
-## Cam Kết Tuân Thủ Tiêu Chuẩn Cộng Đồng GitHub & An Toàn
-
-Dự án SteamFix tuân thủ nghiêm ngặt các tiêu chuẩn đạo đức và bảo mật mã nguồn mở:
-
-- **Không can thiệp vào phần mềm của bên thứ ba**: Không chỉnh sửa, không vá (patch), không dịch ngược hay can thiệp vào bất kỳ tệp thực thi nào của Steam (`Steam.exe`) hoặc các tệp tin trò chơi.
-- **Không can thiệp vào bộ nhớ hay tiến trình (No Injection)**: Không sử dụng DLL Injection, hook API, hay can thiệp vào bộ nhớ của tiến trình game.
-- **Không vượt cơ chế chống gian lận (Anti-Cheat Friendly)**: Không tương tác với các dịch vụ bảo mật game như Valve Anti-Cheat (VAC), BattlEye, Easy Anti-Cheat hay Riot Vanguard. Hoạt động độc lập ở tầng kết nối mạng hệ thống.
-- **Không thu thập dữ liệu (Zero Telemetry)**: Không có mã phân tích người dùng, không theo dõi hành vi, không lưu trữ thông tin đăng nhập hay tài khoản.
-- **Không tạo lỗ hổng bảo mật**: Không vô hiệu hóa Windows Defender, không tắt tường lửa (Firewall), không can thiệp cài đặt chứng chỉ bảo mật giả mạo (Root CA).
-- **Tính toàn vẹn tệp nhị phân**: Bản phát hành GoodbyeDPI đi kèm được tải trực tiếp từ nguồn chính thức của tác giả ValdikSS và được kiểm tra mã băm SHA-256 nghiêm ngặt trước khi giải nén.
-
----
-
-## Tính Năng Chính
-
-- **DNS-over-HTTPS (DoH) bảo mật**: Sử dụng máy chủ DNS công cộng của Google (`8.8.8.8` / `8.8.4.4`) được mã hóa qua giao thức HTTPS nhằm ngăn chặn việc phân giải sai địa chỉ IP. Tự động chuyển đổi tương thích nếu phiên bản Windows cũ không hỗ trợ DoH native.
-- **Xử lý phân mảnh gói tin TLS (DPI Bypass)**: Vận hành GoodbyeDPI với các tham số chuẩn (`-f 2 -e 2 --auto-ttl --reverse-frag`) giúp phân tách phần tiêu đề SNI trong gói tin Client Hello mà không làm ảnh hưởng đến dữ liệu truyền tải.
-- **Vận hành dưới dạng Windows Service**: Tạo dịch vụ hệ thống `steamfix` tự động khởi chạy và phục hồi khi máy tính khởi động.
-- **Menu điều khiển trực quan**: Giao diện điều khiển tương tác rõ ràng (Cài đặt, Gỡ cài đặt, Trạng thái, Làm mới bộ đệm mạng).
-- **Sao lưu và khôi phục mạng an toàn**: Tự động lưu cấu hình mạng ban đầu của người dùng vào tệp tin JSON và khôi phục nguyên trạng 100% khi người dùng chọn Gỡ cài đặt.
-
----
-
-## Các Trường Hợp Hỗ Trợ Phù Hợp
-
-SteamFix chỉ giải quyết các vấn đề xuất phát từ tầng kết nối mạng:
-
-- **Steam Store không vào được**: Báo lỗi kết nối `Error -105` hoặc tải trang chậm do truy vấn tên miền bị ngắt quãng.
-- **Steam Community không load**: Chợ cộng đồng (Market), kho đồ (Inventory), hồ sơ cá nhân và Steam Workshop bị nghẽn mạng.
-- **Steam avatar không hiện**: Ảnh đại diện của tài khoản cá nhân và danh sách bạn bè hiển thị ô vuông mặc định do CDN hình ảnh bị gián đoạn.
-- **CS2 không load avatar**: Trong Counter-Strike 2, bảng điểm hiển thị avatar mặc định thay vì avatar thật do kết nối tải ảnh từ CDN Steam bị chặn.
-- **Tải game bị đứng tốc độ**: Tốc độ tải nội dung game trên Steam bị tuột về 0 bytes/s hoặc báo lỗi `Content servers unreachable`.
-- **PUBG hoặc game launcher bị kẹt kết nối**: Trò chơi bị treo ở màn hình loading/connecting ban đầu do máy chủ API/CDN xác thực bị ngắt kết nối mạng.
-
-> [!IMPORTANT]
-> **Giới hạn kỹ thuật**: SteamFix **không thể** và **không tuyên bố** khắc phục các lỗi về phần cứng máy tính, lỗi vi xử lý đồ họa (GPU), lỗi dựng hình (graphics bugs) trong game, tệp game bị hỏng, lỗi máy chủ nhà phát hành bảo trì, hoặc các hình phạt hạn chế tài khoản.
-
----
-
-## Menu Điều Khiển
-
-Khi khởi chạy `SteamFix.ps1`, giao diện quản lý cung cấp các tính năng:
-
-```text
-============================================
-                 SteamFix
-============================================
-
-1. Install
-2. Uninstall
-3. Check status
-4. Refresh network
-0. Exit
-
-Select an option:
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm 'https://raw.githubusercontent.com/ZeroMemInc/steam-fix/main/SteamFix.ps1' | iex"
 ```
 
-- **`1. Install` (Cài đặt)**: Tự động sao lưu cài đặt DNS -> Thiết lập DNS bảo mật -> Kiểm tra mã băm SHA-256 của GoodbyeDPI -> Khởi tạo dịch vụ Windows Service `steamfix`.
-- **`2. Uninstall` (Gỡ bỏ)**: Dừng và xóa dịch vụ `steamfix`, hoàn trả cấu hình mạng và DNS về đúng trạng thái ban đầu của hệ thống, dọn sạch thư mục cài đặt.
-- **`3. Check status` (Kiểm tra trạng thái)**: Kiểm tra trạng thái hoạt động thực tế của dịch vụ `steamfix` trong Windows Service Manager.
-- **`4. Refresh network` (Làm mới mạng)**: Khởi động lại dịch vụ `steamfix`, giải phóng và làm sạch bộ nhớ đệm DNS (`ipconfig /flushdns`), xóa bộ đệm ARP và đăng ký lại DNS (`ipconfig /registerdns`).
-- **`0. Exit` (Thoát)**: Đóng giao diện công cụ.
+---
+
+### Bước 2: Mở cửa sổ dòng lệnh trên Windows
+Có 2 cách rất dễ làm, bạn chọn **Cách 1** là nhanh nhất:
+
+#### Cách 1 (Nhanh nhất - khuyên dùng):
+1. Nhìn trên bàn phím, bấm cùng lúc 2 phím: **`Phím Windows`** *(phím có biểu tượng cửa sổ cạnh nút Alt)* + **`Phím R`**.
+2. Một ô cửa sổ nhỏ có tên **Run** hiện lên ở góc màn hình.
+3. Nhập vào ô đó chữ: **`powershell`**
+4. Bấm phím **Enter** trên bàn phím.
+
+#### Cách 2 (Nếu dùng chuột):
+1. Bấm vào nút **Start** (biểu tượng Windows ở góc dưới thanh taskbar máy tính).
+2. Gõ chữ: **`powershell`**
+3. Thấy biểu tượng **Windows PowerShell** hiện ra ➔ Nhấp chuột phải chọn **Run as administrator** (Chạy với quyền quản trị viên).
 
 ---
 
-## Hoạt Động Của Dịch Vụ Mạng (Phạm Vi Toàn Hệ Thống)
+### Bước 3: Dán lệnh và bấm Cài đặt
+1. Tại cửa sổ màu xanh hoặc đen vừa mở lên:
+   - Nhấp **chuột phải** 1 lần vào giữa màn hình (hoặc bấm tổ hợp phím **`Ctrl + V`**) để dán dòng lệnh đã copy ở Bước 1 vào.
+2. Bấm phím **Enter**.
+3. Nếu màn hình Windows hiện bảng hỏi **User Account Control (UAC)** yêu cầu cấp quyền ➔ Bạn bấm chọn **Yes**.
+4. Menu của SteamFix sẽ xuất hiện:
+   ```text
+   ============================================
+             SteamFix by ZeroMem Studio
+             https://zeromem.indevs.in/
+   ============================================
 
-Dịch vụ GoodbyeDPI được thiết lập để xử lý gói tin mạng ở cấp hệ thống:
-- **Tác động tích cực**: Tự động cải thiện kết nối cho cả trình duyệt web (Chrome, Edge, Firefox) và các trình khởi chạy khác mà không cần cài đặt proxy thủ công.
-- **Khuyến cáo khi dùng cùng VPN**: Khi sử dụng phần mềm VPN toàn phần (Full-tunnel VPN), cả hai phần mềm có thể xung đột do cùng điều hướng bộ lọc gói tin qua driver WinDivert. Nếu cần sử dụng VPN, người dùng nên chọn Gỡ cài đặt (`Option 2`) trước.
+   1. Install
+   2. Uninstall
+   3. Check status
+   4. Refresh network
+   0. Exit
 
----
-
-## Quy Tắc Ứng Xử & Đóng Góp
-
-Dự án coi trọng việc xây dựng một cộng đồng lành mạnh, tôn trọng lẫn nhau và cởi mở:
-- Vui lòng xem [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) để biết thêm về Quy tắc Ứng xử Cộng đồng.
-- Vui lòng xem [CONTRIBUTING.md](CONTRIBUTING.md) nếu bạn muốn gửi ý kiến đóng góp hoặc Pull Request.
-- Vui lòng xem [SECURITY.md](SECURITY.md) về Chính sách An toàn Thông tin và cách báo cáo lỗ hổng.
-
----
-
-## Giấy Phép & Nguồn Gốc Thành Phần
-
-- Dự án SteamFix được phát hành theo giấy phép nguồn mở **MIT License**.
-- Các thành phần nguồn mở của bên thứ ba được sử dụng hợp pháp và giữ nguyên bản quyền của tác giả:
-  - **GoodbyeDPI** bởi tác giả ValdikSS (Giấy phép Apache License 2.0).
-  - Driver **WinDivert** bởi tác giả basil00 (Giấy phép LGPLv3 / GPLv2).
-  - Chi tiết thông cáo bản quyền xem tại [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+   Select an option:
+   ```
+5. Bạn chỉ cần gõ số **`1`** rồi bấm **Enter**.
+6. Chờ khoảng 3-5 giây cho công cụ tự động thiết lập xong. Sau đó khởi động lại Steam hoặc Game là bạn có thể chơi bình thường!
 
 ---
 
-## Tuyên Bố Miễn Trừ Trách Nhiệm
+## 🛠️ CÁCH SỬ DỤNG CÁC TÍNH NĂNG KHÁC TRONG MENU
 
-SteamFix là một dự án nghiên cứu và tiện ích mã nguồn mở độc lập, phi lợi nhuận. Steam, Counter-Strike 2, PUBG và Valve là các thương hiệu đã được đăng ký của các chủ sở hữu tương ứng. SteamFix hoàn toàn không có mối liên kết, tài trợ hay bảo trợ bởi các tổ chức hoặc nhà phát hành nêu trên.
+Mỗi khi bạn chạy lại dòng lệnh trên, công cụ sẽ mở ra một Menu điều khiển với các số từ `0` đến `4`:
+
+* **Phím `1` - Install (Cài đặt)**: Tự động sao lưu mạng gốc ➔ Thiết lập DNS an toàn ➔ Cài dịch vụ nền tự chạy cùng Windows. (Chỉ cần cài 1 lần đầu).
+* **Phím `2` - Uninstall (Gỡ cài đặt hoàn toàn)**: Nếu bạn không muốn dùng nữa, bấm số `2`, công cụ sẽ xóa sạch dịch vụ và khôi phục 100% cài đặt mạng về y hệt trạng thái ban đầu của máy bạn.
+* **Phím `3` - Check status (Kiểm tra trạng thái)**: Kiểm tra xem công cụ đang chạy bình thường hay đã dừng.
+* **Phím `4` - Refresh network (Làm mới mạng)**: Nếu vừa đổi Wi-Fi hoặc mạng bị giật lag, bấm số `4` để công cụ xóa sạch bộ nhớ đệm mạng (DNS Flush) và khởi động lại dịch vụ.
+* **Phím `0` - Exit (Thoát)**: Đóng cửa sổ menu.
+
+---
+
+## 🔒 AN TOÀN & BẢO MẬT TỪ ZEROMEM STUDIO
+
+* **Mã nguồn mở 100%**: Ai cũng có thể xem toàn bộ từng dòng mã lệnh tại repository này.
+* **Không thu thập dữ liệu (Zero Telemetry)**: Công cụ không gửi bất kỳ thông tin cá nhân, tài khoản hay dữ liệu máy tính của bạn đi đâu cả.
+* **Không chỉnh sửa phần mềm của bên thứ ba**: Không can thiệp, không vá, không sửa đổi file của Steam hay trò chơi.
+* **Cơ chế sao lưu an toàn**: Tự động lưu cấu hình mạng cũ vào máy của bạn trước khi thay đổi, đảm bảo hoàn tác nguyên vẹn khi gỡ bỏ.
+
+---
+
+## 🌐 HỖ TRỢ & LIÊN HỆ
+
+* **Trang chủ Studio**: [https://zeromem.indevs.in/](https://zeromem.indevs.in/)
+* **Kênh hỗ trợ kỹ thuật 24/7**: Mở ticket hỗ trợ nhanh thông qua Discord trên trang chủ.
+* **Báo cáo lỗi (Bug Reports)**: Gửi thông tin thông qua mục Issues của GitHub.
+
+---
+
+<div align="center">
+  <sub>© 2026 ZeroMem Studio. All rights reserved. Enhancing your digital gaming experience.</sub>
+</div>

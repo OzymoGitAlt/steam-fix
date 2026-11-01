@@ -1,4 +1,4 @@
-param(
+﻿param(
     [ValidateSet("Install","Uninstall","Status","Refresh","")]
     [string]$Action = $(if ($env:STEAMFIX_ACTION) { $env:STEAMFIX_ACTION } else { "" })
 )
@@ -6,7 +6,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Hosted script location for elevation and self-updating execution.
-$SelfUrl = "https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1"
+$SelfUrl = "https://raw.githubusercontent.com/ZeroMemInc/steam-fix/main/SteamFix.ps1"
 
 $ServiceName = "steamfix"
 $Root        = Join-Path $env:ProgramData "SteamFix"
@@ -397,7 +397,7 @@ function Install-SteamFix {
 
     Write-Host ""
     Write-Host "============================================"
-    Write-Host "              SteamFix Install"
+    Write-Host "      SteamFix Install - ZeroMem Studio" -ForegroundColor Cyan
     Write-Host "============================================"
     Write-Host ""
 
@@ -462,7 +462,7 @@ function Uninstall-SteamFix {
 
     Write-Host ""
     Write-Host "============================================"
-    Write-Host "             SteamFix Uninstall"
+    Write-Host "     SteamFix Uninstall - ZeroMem Studio" -ForegroundColor Cyan
     Write-Host "============================================"
     Write-Host ""
 
@@ -488,7 +488,7 @@ function Refresh-Network {
 
     Write-Host ""
     Write-Host "============================================"
-    Write-Host "          SteamFix Network Refresh"
+    Write-Host "   SteamFix Network Refresh - ZeroMem Studio" -ForegroundColor Cyan
     Write-Host "============================================"
     Write-Host ""
 
@@ -518,7 +518,7 @@ function Refresh-Network {
 function Show-Status {
     $svc = Get-Service $ServiceName -ErrorAction SilentlyContinue
     Write-Host ""
-    Write-Host "SteamFix Status"
+    Write-Host "SteamFix Status (ZeroMem Studio - https://zeromem.indevs.in/)" -ForegroundColor Cyan
     Write-Host "---------------"
     if ($svc) {
         Write-Host ("Service : " + $svc.Status)
@@ -535,7 +535,8 @@ function Show-Status {
 function Show-MainMenu {
     Clear-Host
     Write-Host "============================================"
-    Write-Host "                 SteamFix"
+    Write-Host "          SteamFix by ZeroMem Studio" -ForegroundColor Cyan
+    Write-Host "          https://zeromem.indevs.in/" -ForegroundColor DarkGray
     Write-Host "============================================"
     Write-Host ""
     Write-Host "1. Install"

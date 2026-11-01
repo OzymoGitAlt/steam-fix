@@ -29,7 +29,7 @@ SteamFix operates strictly as a local network configuration and packet-formattin
 5. **Transparency & Inspection**
    - We encourage all users to inspect the script before running it with elevated privileges:
      ```powershell
-     Invoke-WebRequest 'https://raw.githubusercontent.com/OzymoGitAlt/steam-fix/main/SteamFix.ps1' -OutFile SteamFix.ps1
+     Invoke-WebRequest 'https://raw.githubusercontent.com/ZeroMemInc/steam-fix/main/SteamFix.ps1' -OutFile SteamFix.ps1
      notepad SteamFix.ps1
      ```
 
