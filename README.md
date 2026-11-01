@@ -85,7 +85,7 @@ Mỗi khi bạn chạy lại dòng lệnh trên, công cụ sẽ mở ra một M
 
 ---
 
-## 🔒 AN TOÀN & BẢO MẬT TỪ ZEROMEM STUDIO
+## 🔒 AN TOÀN & BẢO MẬT
 
 * **Mã nguồn mở 100%**: Ai cũng có thể xem toàn bộ từng dòng mã lệnh tại repository này.
 * **Không thu thập dữ liệu (Zero Telemetry)**: Công cụ không gửi bất kỳ thông tin cá nhân, tài khoản hay dữ liệu máy tính của bạn đi đâu cả.
