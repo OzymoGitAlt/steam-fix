@@ -19,14 +19,9 @@
 * **Tải game bị đứng**: Tốc độ tải game bị tuột về 0 bytes/s hoặc báo lỗi `Content servers unreachable`.
 * Một số game/launcher (như PUBG) bị treo cứng ở màn hình Loading kết nối ban đầu do máy chủ xác thực CDN bị gián đoạn.
 
-> [!NOTE]
-> **Triết lý sản phẩm ZeroMem Studio (Non-Invasive)**: Công cụ hoạt động 100% ở tầng cấu hình mạng (kết hợp mã hóa DNS-over-HTTPS và phân mảnh gói tin GoodbyeDPI). **Tuyệt đối không can thiệp vào file game, không tiêm mã vào bộ nhớ, không chỉnh sửa file Steam và hoàn toàn an toàn với mọi hệ thống chống gian lận (Anti-Cheat: VAC, EAC, BattlEye).**
-
 ---
 
-## 🚀 HƯỚNG DẪN CÀI ĐẶT CỰC KỲ ĐƠN GIẢN (Cho Người Dùng Mới)
-
-> **Bạn không cần biết lập trình hay rành công nghệ, chỉ cần làm đúng theo 3 bước cực nhanh bên dưới:**
+## 🚀 HƯỚNG DẪN CÀI ĐẶT
 
 ### Bước 1: Sao chép (Copy) dòng lệnh này
 Bôi đen toàn bộ dòng lệnh bên dưới rồi bấm **`Ctrl + C`** (hoặc nhấp chuột phải chọn **Sao chép**):
